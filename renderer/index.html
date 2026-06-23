@@ -40,7 +40,7 @@
         <aside class="sidebar">
             <div class="sidebar-section">
                 <h3>Configuração</h3>
-                <select id="difficulty" onchange="onDifficultyChange()">
+                <select id="difficulty" onchange="onDifficultyChange();try{playClickSound()}catch(e){}">
                     <option value="easy">Fácil</option>
                     <option value="medium" selected>Médio</option>
                     <option value="hard">Difícil</option>
@@ -53,28 +53,28 @@
                     <option value="ambar">Âmbar</option>
                     <option value="scifi">Sci-Fi</option>
                 </select>
-                <button class="primary full-width" onclick="playClickSound(); newGame()">Novo Jogo</button>
+                <button class="primary full-width" onclick="newGame();try{playClickSound()}catch(e){}">Novo Jogo</button>
             </div>
 
             <div class="sidebar-section status-box">
                 <div class="timer-display" id="timer-display">00:00</div>
                 <div class="timer-controls">
-                    <button id="pause-btn" onclick="togglePause()" class="timer-btn">⏸</button>
-                    <button id="restart-btn" onclick="restartTimer()" class="timer-btn">↺</button>
+                    <button id="pause-btn" onclick="togglePause();try{playClickSound()}catch(e){}" class="timer-btn">⏸</button>
+                    <button id="restart-btn" onclick="restartTimer();try{playClickSound()}catch(e){}" class="timer-btn">↺</button>
                 </div>
                 <div class="message" id="message"></div>
                 <div class="mistakes-display" id="mistakes-display">Erros: 0 / 5</div>
             </div>
 
             <div class="sidebar-section">
-                <button id="pencil-btn" class="full-width" onclick="playClickSound(); togglePencilMode()">Rascunho: OFF</button>
-                <button id="hint-btn" class="hint-btn full-width" onclick="playClickSound(); useHint()">Dica (<span id="hints-count">3</span>)</button>
+                <button id="pencil-btn" class="full-width" onclick="togglePencilMode();try{playClickSound()}catch(e){}">Rascunho: OFF</button>
+                <button id="hint-btn" class="hint-btn full-width" onclick="useHint();try{playClickSound()}catch(e){}">Dica (<span id="hints-count">3</span>)</button>
             </div>
 
             <div class="sidebar-section">
                 <h3>Teclado</h3>
                 <div class="numpad" id="numpad"></div>
-                <button class="clear-btn full-width" onclick="playClickSound(); handleInput(0)">Limpar Célula</button>
+                <button class="clear-btn full-width" onclick="handleInput(0);try{playClickSound()}catch(e){}">Limpar Célula</button>
             </div>
 
             <div class="instructions">
@@ -90,8 +90,8 @@
             <h2>Limite de Erros Atingido</h2>
             <p>Você cometeu o número máximo de erros permitidos.</p>
             <div class="modal-buttons">
-                <button onclick="restartGame()">Reiniciar</button>
-                <button class="primary" onclick="newGame()">Novo Jogo</button>
+                <button onclick="restartGame();try{playClickSound()}catch(e){}">Reiniciar</button>
+                <button class="primary" onclick="newGame();try{playClickSound()}catch(e){}">Novo Jogo</button>
             </div>
         </div>
     </div>
@@ -106,8 +106,8 @@
                 <p><strong>Erros:</strong> <span id="saved-mistakes">-</span></p>
             </div>
             <div class="modal-buttons">
-                <button class="primary" onclick="continueSavedGame()">Continuar</button>
-                <button onclick="discardSavedGame()">Novo Jogo</button>
+                <button class="primary" onclick="continueSavedGame();try{playClickSound()}catch(e){}">Continuar</button>
+                <button onclick="discardSavedGame();try{playClickSound()}catch(e){}">Novo Jogo</button>
             </div>
         </div>
     </div>
