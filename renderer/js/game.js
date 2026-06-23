@@ -762,12 +762,16 @@ if (window.electronAPI) {
 function init() {
   console.log('Sudokue: Inicializando...');
 
-  // Auto-detect Tauri and set Sci-Fi theme
+  // Auto-detect Tauri and set Sci-Fi theme (only if no saved preference)
   if (window.__TAURI__) {
     document.title = 'Sudokue // Tauri';
-    document.body.setAttribute('data-theme', 'scifi');
-    document.getElementById('theme').value = 'scifi';
-    localStorage.setItem('sudokue-theme', 'scifi');
+    const savedTheme = localStorage.getItem('sudokue-theme');
+    if (!savedTheme) {
+      document.body.setAttribute('data-theme', 'scifi');
+      const themeSelect = document.getElementById('theme');
+      if (themeSelect) themeSelect.value = 'scifi';
+      localStorage.setItem('sudokue-theme', 'scifi');
+    }
   }
 
   // Load saved theme
@@ -776,6 +780,12 @@ function init() {
     document.body.setAttribute('data-theme', savedTheme);
     const themeSelect = document.getElementById('theme');
     if (themeSelect) themeSelect.value = savedTheme;
+  }
+
+  // Wire up theme selector with addEventListener (more reliable than onchange attribute)
+  const themeSelect = document.getElementById('theme');
+  if (themeSelect) {
+    themeSelect.addEventListener('change', onThemeChange);
   }
 
   initNumpad();
