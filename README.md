@@ -51,6 +51,25 @@ npm run build:win  # Build Windows portable
 - Web Audio API for sound
 - localStorage for persistence
 
+## Tauri Version (Rust)
+
+A lighter alternative using Tauri v2 (~5MB vs ~150MB Electron).
+
+### Prerequisites
+- Rust: https://rustup.rs
+- Windows: Visual Studio Build Tools or `winget install Microsoft.VisualStudio.2022.BuildTools`
+
+### Dev
+```bash
+npm run start:tauri    # or: cargo tauri dev
+```
+
+### Build
+```bash
+npm run build:win:tauri  # or: cargo tauri build
+# Output: src-tauri/target/release/bundle/msi/sudokue_1.1.0_x64_en-US.msi
+```
+
 ## License
 
 MIT
