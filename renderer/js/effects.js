@@ -69,6 +69,62 @@ function playNumberCompleteSound() {
     playTone(880, 0.1, 'sine', 0.4); // A5 - som agudo e curto
 }
 
+// --- 6. Som de SELEÇÃO: Soft click ao selecionar célula ---
+function playSelectSound() {
+    playTone(600, 0.05, 'sine', 0.15);
+}
+
+// --- 7. Som de CORRETO: Pop brilhante ao acertar número ---
+function playCorrectSound() {
+    playTone(880, 0.08, 'sine', 0.25);
+    setTimeout(() => playTone(1320, 0.06, 'sine', 0.15), 40);
+}
+
+// --- 8. Som de ERRO: Buzz ao errar ---
+function playErrorSound() {
+    playTone(150, 0.15, 'sawtooth', 0.2);
+}
+
+// --- 9. Som de RASCUNHO: Soft tick ao alternar modo lápis ---
+function playPencilSound() {
+    playTone(1000, 0.03, 'sine', 0.1);
+}
+
+// --- 10. Som de LIMPAR: Swoosh ao apagar célula ---
+function playClearSound() {
+    playTone(400, 0.06, 'sine', 0.12);
+    setTimeout(() => playTone(300, 0.04, 'sine', 0.1), 30);
+}
+
+// --- 11. Som de DICA: Chime de revelação ---
+function playHintSound() {
+    playTone(1046, 0.1, 'sine', 0.3); // C6 bright chime
+}
+
+// --- 12. Som de CLIQUE: UI click genérico para botões ---
+function playClickSound() {
+    playTone(800, 0.03, 'sine', 0.1);
+}
+
+// --- 13. Som de PAUSA: Duas notas descendentes ---
+function playPauseSound() {
+    playTone(500, 0.08, 'triangle', 0.2);
+    setTimeout(() => playTone(350, 0.08, 'triangle', 0.2), 80);
+}
+
+// --- 14. Som de RESUME: Duas notas ascendentes ---
+function playResumeSound() {
+    playTone(350, 0.08, 'triangle', 0.2);
+    setTimeout(() => playTone(500, 0.08, 'triangle', 0.2), 80);
+}
+
+// --- 15. Som de NOVO JOGO: Fanfarra de abertura ---
+function playNewGameSound() {
+    playTone(523, 0.12, 'sine', 0.3);
+    setTimeout(() => playTone(659, 0.12, 'sine', 0.3), 100);
+    setTimeout(() => playTone(784, 0.15, 'sine', 0.3), 200);
+}
+
 // ============================================
 // EFEITOS VISUAIS
 // ============================================

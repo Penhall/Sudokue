@@ -51,7 +51,7 @@
                     <option value="matrix">Matrix</option>
                     <option value="ambar">Âmbar</option>
                 </select>
-                <button class="primary full-width" onclick="newGame()">Novo Jogo</button>
+                <button class="primary full-width" onclick="playClickSound(); newGame()">Novo Jogo</button>
             </div>
 
             <div class="sidebar-section status-box">
@@ -65,14 +65,14 @@
             </div>
 
             <div class="sidebar-section">
-                <button id="pencil-btn" class="full-width" onclick="togglePencilMode()">Rascunho: OFF</button>
-                <button id="hint-btn" class="hint-btn full-width" onclick="useHint()">Dica (<span id="hints-count">3</span>)</button>
+                <button id="pencil-btn" class="full-width" onclick="playClickSound(); togglePencilMode()">Rascunho: OFF</button>
+                <button id="hint-btn" class="hint-btn full-width" onclick="playClickSound(); useHint()">Dica (<span id="hints-count">3</span>)</button>
             </div>
 
             <div class="sidebar-section">
                 <h3>Teclado</h3>
                 <div class="numpad" id="numpad"></div>
-                <button class="clear-btn full-width" onclick="handleInput(0)">Limpar Célula</button>
+                <button class="clear-btn full-width" onclick="playClickSound(); handleInput(0)">Limpar Célula</button>
             </div>
 
             <div class="instructions">

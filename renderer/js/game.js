@@ -95,6 +95,10 @@ function newGame() {
 
     if (genModal) genModal.classList.remove('show');
 
+    if (typeof playNewGameSound === 'function') {
+      playNewGameSound();
+    }
+
     // Save initial state
     autoSave();
   }, 50);
@@ -131,6 +135,10 @@ function restartGame() {
   updateCounts();
   startTimer();
   autoSave();
+
+  if (typeof playNewGameSound === 'function') {
+    playNewGameSound();
+  }
 }
 
 // ==========================================
@@ -179,9 +187,15 @@ function togglePause() {
   if (isPaused) {
     stopTimer();
     if (pauseBtn) pauseBtn.textContent = '▶';
+    if (typeof playPauseSound === 'function') {
+      playPauseSound();
+    }
   } else {
     startTimer();
     if (pauseBtn) pauseBtn.textContent = '⏸';
+    if (typeof playResumeSound === 'function') {
+      playResumeSound();
+    }
   }
   updateTimerDisplay();
 }
@@ -284,11 +298,17 @@ function updateDifficultySettings() {
 }
 
 function onDifficultyChange() {
+  if (typeof playClickSound === 'function') {
+    playClickSound();
+  }
   // Changing difficulty triggers immediate new game
   newGame();
 }
 
 function onThemeChange() {
+  if (typeof playClickSound === 'function') {
+    playClickSound();
+  }
   const theme = document.getElementById('theme').value;
   document.body.setAttribute('data-theme', theme);
   localStorage.setItem('sudokue-theme', theme);
@@ -351,6 +371,9 @@ function renderGrid() {
 
       cell.addEventListener('click', () => {
         selectedCell = {r, c};
+        if (typeof playSelectSound === 'function') {
+          playSelectSound();
+        }
         renderGrid();
         updatePreview();
       });
@@ -397,15 +420,24 @@ function handleInput(val) {
   if (val === 0) {
     board[r][c] = 0;
     pencilMarks[r][c].clear();
+    if (typeof playClearSound === 'function') {
+      playClearSound();
+    }
   } else {
     if (val === solution[r][c]) {
       board[r][c] = val;
       pencilMarks[r][c].clear();
       removePencilMarkFromRelated(r, c, val);
+      if (typeof playCorrectSound === 'function') {
+        playCorrectSound();
+      }
       if (typeof triggerEffectsAfterMove === 'function') {
         triggerEffectsAfterMove(r, c);
       }
     } else {
+      if (typeof playErrorSound === 'function') {
+        playErrorSound();
+      }
       mistakes++;
       updateMistakesUI();
 
@@ -435,6 +467,9 @@ function handleInput(val) {
 
 function togglePencilMode() {
   isPencilMode = !isPencilMode;
+  if (typeof playPencilSound === 'function') {
+    playPencilSound();
+  }
   const btn = document.getElementById('pencil-btn');
   if (isPencilMode) {
     btn.textContent = 'Rascunho: ON';
@@ -449,6 +484,10 @@ function useHint() {
   if (!selectedCell || hintsLeft <= 0) return;
   const {r, c} = selectedCell;
   if (fixed[r][c]) return;
+
+  if (typeof playHintSound === 'function') {
+    playHintSound();
+  }
 
   board[r][c] = solution[r][c];
   fixed[r][c] = true;
@@ -569,10 +608,10 @@ document.addEventListener('keydown', (e) => {
 
   const key = e.key;
 
-  if (key === 'ArrowUp') { e.preventDefault(); selectedCell.r = Math.max(0, selectedCell.r - 1); renderGrid(); updatePreview(); return; }
-  if (key === 'ArrowDown') { e.preventDefault(); selectedCell.r = Math.min(15, selectedCell.r + 1); renderGrid(); updatePreview(); return; }
-  if (key === 'ArrowLeft') { e.preventDefault(); selectedCell.c = Math.max(0, selectedCell.c - 1); renderGrid(); updatePreview(); return; }
-  if (key === 'ArrowRight') { e.preventDefault(); selectedCell.c = Math.min(15, selectedCell.c + 1); renderGrid(); updatePreview(); return; }
+  if (key === 'ArrowUp') { e.preventDefault(); selectedCell.r = Math.max(0, selectedCell.r - 1); if (typeof playSelectSound === 'function') playSelectSound(); renderGrid(); updatePreview(); return; }
+  if (key === 'ArrowDown') { e.preventDefault(); selectedCell.r = Math.min(15, selectedCell.r + 1); if (typeof playSelectSound === 'function') playSelectSound(); renderGrid(); updatePreview(); return; }
+  if (key === 'ArrowLeft') { e.preventDefault(); selectedCell.c = Math.max(0, selectedCell.c - 1); if (typeof playSelectSound === 'function') playSelectSound(); renderGrid(); updatePreview(); return; }
+  if (key === 'ArrowRight') { e.preventDefault(); selectedCell.c = Math.min(15, selectedCell.c + 1); if (typeof playSelectSound === 'function') playSelectSound(); renderGrid(); updatePreview(); return; }
 
   if (key === 'Backspace' || key === 'Delete') { e.preventDefault(); handleInput(0); return; }
   if (key === '0') { e.preventDefault(); handleInput(0); return; }
