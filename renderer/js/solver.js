@@ -319,9 +319,9 @@
   function generatePuzzle(difficulty) {
     const targets = {
       easy: 80,
-      medium: 120,
-      hard: 160,
-      expert: 200
+      medium: 110,
+      hard: 140,
+      expert: 160
     };
 
     let targetRemoved = targets[difficulty];

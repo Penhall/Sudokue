@@ -335,7 +335,7 @@ body {
 }
 
 .timer-display {
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'Space Mono', monospace;
     font-weight: 700;
     font-size: 1.4rem;
     font-variant-numeric: tabular-nums;
