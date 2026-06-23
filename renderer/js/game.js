@@ -434,12 +434,27 @@ function handleInput(val) {
       if (typeof triggerEffectsAfterMove === 'function') {
         triggerEffectsAfterMove(r, c);
       }
+
+      // Cell pop animation on correct placement
+      const cells = document.querySelectorAll('.cell');
+      const cellIdx = r * 16 + c;
+      if (cells[cellIdx]) {
+        cells[cellIdx].classList.add('cell-pop');
+        setTimeout(() => {
+          cells[cellIdx].classList.remove('cell-pop');
+        }, 300);
+      }
     } else {
       if (typeof playErrorSound === 'function') {
         playErrorSound();
       }
       mistakes++;
       updateMistakesUI();
+
+      // Flash the entire grid red on error
+      if (typeof showErrorFeedback === 'function') {
+        showErrorFeedback();
+      }
 
       const cells = document.querySelectorAll('.cell');
       const index = r * 16 + c;

@@ -134,13 +134,19 @@ function showVictoryAnimation() {
     const colors = ['#ffcc00', '#00ff66', '#ffffff', '#ff0000', '#888888', '#ffcc00'];
     const container = document.body;
 
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 150; i++) {
         const confetti = document.createElement('div');
         confetti.className = 'confetti';
         confetti.style.left = Math.random() * 100 + 'vw';
         confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
         confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
         confetti.style.animationDelay = Math.random() * 0.5 + 's';
+
+        // Varied shapes: some squares (default), some circles
+        if (Math.random() > 0.5) {
+            confetti.style.borderRadius = '50%';
+        }
+
         container.appendChild(confetti);
 
         setTimeout(() => confetti.remove(), 3500);
@@ -150,19 +156,34 @@ function showVictoryAnimation() {
     const grid = document.getElementById('grid');
     if (grid) {
         grid.classList.add('victory-animation');
-        setTimeout(() => grid.classList.remove('victory-animation'), 3000);
+        setTimeout(() => grid.classList.remove('victory-animation'), 4000);
+    }
+
+    // Pulse animation on the message element
+    const message = document.querySelector('.message');
+    if (message) {
+        message.classList.add('message-victory-pulse');
+        setTimeout(() => message.classList.remove('message-victory-pulse'), 3000);
     }
 }
 
-// --- 2. Animação de DERROTA: Shake + Flash ---
+// --- 2. Animação de DERROTA: Shake + Flash + Overlay ---
 function showDefeatAnimation() {
     const grid = document.getElementById('grid');
     if (grid) grid.classList.add('defeat-animation');
     document.body.classList.add('defeat-flash');
 
+    // Add dark red overlay
+    const overlay = document.createElement('div');
+    overlay.className = 'defeat-overlay';
+    overlay.style.opacity = '1';
+    document.body.appendChild(overlay);
+
     setTimeout(() => {
         if (grid) grid.classList.remove('defeat-animation');
         document.body.classList.remove('defeat-flash');
+        overlay.style.opacity = '0';
+        setTimeout(() => overlay.remove(), 400);
     }, 1200);
 }
 
@@ -176,14 +197,18 @@ function showBlockCompleteAnimation(blockRow, blockCol) {
         for (let c = blockCol; c < blockCol + 4; c++) {
             const index = r * 16 + c;
             if (cells[index]) {
-                cells[index].classList.add('block-complete');
+                const delay = ((r - blockRow) * 4 + (c - blockCol)) * 20;
+                setTimeout(() => {
+                    cells[index].classList.add('block-complete');
+                }, delay);
             }
         }
     }
 
+    const lastDelay = 15 * 20; // max position within 4x4 block
     setTimeout(() => {
         cells.forEach(cell => cell.classList.remove('block-complete'));
-    }, 1000);
+    }, 800 + lastDelay);
 }
 
 // --- 4. Animação de LINHA/COLUNA COMPLETA ---
@@ -196,21 +221,36 @@ function showLineCompleteAnimation(type, index) {
         for (let c = 0; c < 16; c++) {
             const cellIndex = index * 16 + c;
             if (cells[cellIndex]) {
-                cells[cellIndex].classList.add('line-complete');
+                setTimeout(() => {
+                    cells[cellIndex].classList.add('line-complete');
+                }, c * 20);
             }
         }
     } else if (type === 'col') {
         for (let r = 0; r < 16; r++) {
             const cellIndex = r * 16 + index;
             if (cells[cellIndex]) {
-                cells[cellIndex].classList.add('line-complete');
+                setTimeout(() => {
+                    cells[cellIndex].classList.add('line-complete');
+                }, r * 20);
             }
         }
     }
 
+    const lastDelay = 15 * 20; // max position in a row/col (0-15)
     setTimeout(() => {
         cells.forEach(cell => cell.classList.remove('line-complete'));
-    }, 800);
+    }, 800 + lastDelay);
+}
+
+// --- 5. Feedback de Erro: Flash no grid inteiro ---
+function showErrorFeedback() {
+    const grid = document.getElementById('grid');
+    if (!grid) return;
+    grid.classList.add('grid-error-flash');
+    setTimeout(() => {
+        grid.classList.remove('grid-error-flash');
+    }, 400);
 }
 
 // ============================================
