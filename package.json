@@ -1,0 +1,34 @@
+{
+  "name": "sudokue",
+  "version": "1.0.0",
+  "description": "Sudoku 16x16 — desktop puzzle game with brutalist design",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build:win": "electron-builder --win portable --x64",
+    "build:win:dir": "electron-builder --win portable --x64 --dir"
+  },
+  "build": {
+    "appId": "com.penhall.sudokue",
+    "productName": "Sudokue",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "renderer/**/*"
+    ],
+    "win": {
+      "target": "portable",
+      "icon": null
+    },
+    "portable": {
+      "artifactName": "sudokue-portable.exe"
+    }
+  },
+  "devDependencies": {
+    "electron": "^33.0.0",
+    "electron-builder": "^25.0.0"
+  }
+}

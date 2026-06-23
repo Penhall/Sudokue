@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; font-src 'self' https://fonts.gstatic.com https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' 'unsafe-inline'">
+    <title>Sudokue</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/effects.css">
+</head>
+<body>
+
+    <div class="main-layout">
+        <!-- Painel de Preview à Esquerda -->
+        <aside class="preview-area" id="preview-area">
+            <h3>Célula Selecionada</h3>
+            <div class="preview-cell" id="preview-cell">
+                <div class="preview-empty">Clique em uma célula</div>
+            </div>
+            <div class="preview-info" id="preview-info">
+                <div class="info-row"><span>Posição</span><span id="info-position">-</span></div>
+                <div class="info-row"><span>Bloco</span><span id="info-block">-</span></div>
+                <div class="info-row"><span>Status</span><span id="info-status">-</span></div>
+            </div>
+        </aside>
+
+        <!-- Centro: Tabuleiro -->
+        <div class="board-area">
+            <h1>Sudokue</h1>
+            <div class="sudoku-grid" id="grid"></div>
+        </div>
+
+        <!-- Direita: Controles -->
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <h3>Configuração</h3>
+                <select id="difficulty" onchange="onDifficultyChange()">
+                    <option value="easy">Fácil</option>
+                    <option value="medium" selected>Médio</option>
+                    <option value="hard">Difícil</option>
+                    <option value="expert">Expert</option>
+                </select>
+                <button class="primary full-width" onclick="newGame()">Novo Jogo</button>
+            </div>
+
+            <div class="sidebar-section status-box">
+                <div class="timer-display" id="timer-display">00:00</div>
+                <div class="message" id="message"></div>
+                <div class="mistakes-display" id="mistakes-display">Erros: 0 / 5</div>
+            </div>
+
+            <div class="sidebar-section">
+                <button id="pencil-btn" class="full-width" onclick="togglePencilMode()">Rascunho: OFF</button>
+                <button id="hint-btn" class="hint-btn full-width" onclick="useHint()">Dica (<span id="hints-count">3</span>)</button>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Teclado</h3>
+                <div class="numpad" id="numpad"></div>
+                <button class="clear-btn full-width" onclick="handleInput(0)">Limpar Célula</button>
+            </div>
+
+            <div class="instructions">
+                <p><strong>Teclas permitidas:</strong><br>1-9, A-G, Setas, Backspace.</p>
+                <p style="margin-top: 8px; font-size: 0.8rem;">O número entre parênteses mostra quantos faltam.</p>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Modal: Game Over -->
+    <div class="modal-overlay" id="gameOverModal">
+        <div class="modal-content">
+            <h2>Limite de Erros Atingido</h2>
+            <p>Você cometeu o número máximo de erros permitidos.</p>
+            <div class="modal-buttons">
+                <button onclick="restartGame()">Reiniciar</button>
+                <button class="primary" onclick="newGame()">Novo Jogo</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Jogo Salvo -->
+    <div class="modal-overlay" id="savedGameModal">
+        <div class="modal-content">
+            <h2>Jogo Salvo Encontrado</h2>
+            <div id="savedGameInfo">
+                <p><strong>Dificuldade:</strong> <span id="saved-difficulty">-</span></p>
+                <p><strong>Tempo:</strong> <span id="saved-time">-</span></p>
+                <p><strong>Erros:</strong> <span id="saved-mistakes">-</span></p>
+            </div>
+            <div class="modal-buttons">
+                <button class="primary" onclick="continueSavedGame()">Continuar</button>
+                <button onclick="discardSavedGame()">Novo Jogo</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Generation Status -->
+    <div class="modal-overlay" id="generatingModal">
+        <div class="modal-content">
+            <h2>Gerando Puzzle</h2>
+            <p id="generating-status">Aguarde...</p>
+        </div>
+    </div>
+
+    <script src="js/solver.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/effects.js"></script>
+    <script src="js/game.js"></script>
+</body>
+</html>
