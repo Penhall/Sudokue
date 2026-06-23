@@ -1,4 +1,7 @@
-:root {
+/* ============================================
+   THEME: Obsidian (default — brutalist dark)
+   ============================================ */
+:root, body[data-theme="obsidian"] {
     --bg-primary: #0a0a0a;
     --bg-surface: #141414;
     --bg-cell: #1a1a1a;
@@ -6,6 +9,9 @@
     --bg-cell-selected: #ffffff;
     --bg-cell-highlight: #1f1f1f;
     --bg-cell-same-number: #252525;
+    --bg-cell-row-highlight: #2a2a2a;
+    --bg-cell-col-highlight: #2a2a2a;
+    --bg-cell-value-highlight: #1a3a5c;
     --bg-cell-error: #ff0000;
     --border-primary: #333333;
     --border-thick: #ffffff;
@@ -16,6 +22,113 @@
     --accent-green: #00ff66;
     --accent-yellow: #ffcc00;
     --accent-red: #ff0000;
+    --font-ui: 'Space Grotesk', sans-serif;
+    --font-numbers: 'Instrument Serif', serif;
+    --font-mono: 'Space Mono', monospace;
+}
+
+/* ============================================
+   THEME: Papel (Paper — newspaper puzzle)
+   ============================================ */
+body[data-theme="papel"] {
+    --bg-primary: #f5f0e8;
+    --bg-surface: #ede6d8;
+    --bg-cell: #ffffff;
+    --bg-cell-fixed: #e8e0d0;
+    --bg-cell-selected: #1a1a1a;
+    --bg-cell-highlight: #e8e0d0;
+    --bg-cell-same-number: #ddd5c5;
+    --bg-cell-row-highlight: #d5cdb8;
+    --bg-cell-col-highlight: #d5cdb8;
+    --bg-cell-value-highlight: #c8e6c9;
+    --bg-cell-error: #ffebee;
+    --border-primary: #999999;
+    --border-thick: #1a1a1a;
+    --border-section: #cccccc;
+    --text-primary: #1a1a1a;
+    --text-secondary: #666666;
+    --text-inverse: #ffffff;
+    --accent-green: #2e7d32;
+    --accent-yellow: #f57f17;
+    --accent-red: #c62828;
+    --font-ui: 'Work Sans', sans-serif;
+    --font-numbers: 'Crimson Text', serif;
+    --font-mono: 'Space Mono', monospace;
+}
+
+/* ============================================
+   THEME: Matrix (green-on-black terminal)
+   ============================================ */
+body[data-theme="matrix"] {
+    --bg-primary: #0d0d0d;
+    --bg-surface: #111111;
+    --bg-cell: #0d0d0d;
+    --bg-cell-fixed: #0a0a0a;
+    --bg-cell-selected: #00ff41;
+    --bg-cell-highlight: #0d1a0d;
+    --bg-cell-same-number: #0d260d;
+    --bg-cell-row-highlight: #0d2a0d;
+    --bg-cell-col-highlight: #0d2a0d;
+    --bg-cell-value-highlight: #003300;
+    --bg-cell-error: #330000;
+    --border-primary: #003300;
+    --border-thick: #00ff41;
+    --border-section: #004400;
+    --text-primary: #00ff41;
+    --text-secondary: #008822;
+    --text-inverse: #000000;
+    --accent-green: #00ff41;
+    --accent-yellow: #00cc33;
+    --accent-red: #ff3333;
+    --font-ui: 'Courier New', 'Consolas', monospace;
+    --font-numbers: 'Courier New', 'Consolas', monospace;
+    --font-mono: 'Courier New', 'Consolas', monospace;
+}
+
+/* ============================================
+   THEME: Âmbar (Amber — warm CRT / darkroom)
+   ============================================ */
+body[data-theme="ambar"] {
+    --bg-primary: #1a1008;
+    --bg-surface: #201510;
+    --bg-cell: #1a1008;
+    --bg-cell-fixed: #140c04;
+    --bg-cell-selected: #ffb000;
+    --bg-cell-highlight: #251810;
+    --bg-cell-same-number: #2a1c10;
+    --bg-cell-row-highlight: #2a1c10;
+    --bg-cell-col-highlight: #2a1c10;
+    --bg-cell-value-highlight: #3a2a10;
+    --bg-cell-error: #330000;
+    --border-primary: #4a3020;
+    --border-thick: #ffb000;
+    --border-section: #3a2518;
+    --text-primary: #ffe0b0;
+    --text-secondary: #8a6040;
+    --text-inverse: #1a1008;
+    --accent-green: #a0c030;
+    --accent-yellow: #ffb000;
+    --accent-red: #ff4444;
+    --font-ui: 'IBM Plex Sans', sans-serif;
+    --font-numbers: 'IBM Plex Serif', serif;
+    --font-mono: 'IBM Plex Mono', monospace;
+}
+
+/* Matrix text-shadow glow */
+body[data-theme="matrix"] .cell {
+    text-shadow: 0 0 5px rgba(0,255,65,0.5);
+}
+
+body[data-theme="matrix"] .preview-value,
+body[data-theme="matrix"] .timer-display,
+body[data-theme="matrix"] .message,
+body[data-theme="matrix"] .sidebar-section h3,
+body[data-theme="matrix"] .preview-area h3,
+body[data-theme="matrix"] .board-area h1,
+body[data-theme="matrix"] .instructions,
+body[data-theme="matrix"] .modal-content h2,
+body[data-theme="matrix"] .modal-content p {
+    text-shadow: 0 0 5px rgba(0,255,65,0.5);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -25,7 +138,7 @@ body {
     color: var(--text-primary);
     height: 100vh;
     overflow: hidden;
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: var(--font-ui);
     font-weight: 600;
     letter-spacing: 0.05em;
 }
@@ -53,7 +166,7 @@ body {
 }
 
 .preview-area h3 {
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: var(--font-ui);
     font-size: 0.7rem;
     text-transform: uppercase;
     letter-spacing: 0.15em;
@@ -90,7 +203,7 @@ body {
 }
 
 .preview-value {
-    font-family: 'Instrument Serif', serif;
+    font-family: var(--font-numbers);
     font-size: clamp(60px, 8vw, 100px);
     font-weight: 800;
     color: var(--text-primary);
@@ -131,7 +244,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: var(--font-ui);
     font-size: clamp(14px, 2vw, 22px);
     color: var(--text-secondary);
     font-weight: 700;
@@ -190,7 +303,7 @@ body {
 }
 
 .board-area h1 {
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: var(--font-ui);
     font-size: 1.2rem;
     font-weight: 700;
     letter-spacing: 0.1em;
@@ -208,10 +321,9 @@ body {
     gap: 1px;
     border: 3px solid var(--border-thick);
     border-radius: 0;
-    width: min(calc(100vh - 20px), calc(100vw - 580px));
-    height: min(calc(100vh - 20px), calc(100vw - 580px));
-    max-width: 900px;
-    max-height: 900px;
+    width: min(calc(100vh - 10px), calc(100vw - 580px));
+    height: min(calc(100vh - 10px), calc(100vw - 580px));
+    max-height: none;
     user-select: none;
 }
 
@@ -219,8 +331,8 @@ body {
     background-color: var(--bg-cell);
     display: grid;
     place-items: center;
-    font-family: 'Instrument Serif', serif;
-    font-size: clamp(16px, 2.5vw, 40px);
+    font-family: var(--font-numbers);
+    font-size: clamp(18px, 2.8vw, 48px);
     font-weight: 600;
     cursor: pointer;
     position: relative;
@@ -248,6 +360,18 @@ body {
 
 .cell.same-number {
     background-color: var(--bg-cell-same-number);
+}
+
+.cell.row-highlight {
+    background-color: var(--bg-cell-row-highlight);
+}
+
+.cell.col-highlight {
+    background-color: var(--bg-cell-col-highlight);
+}
+
+.cell.value-highlight {
+    background-color: var(--bg-cell-value-highlight);
 }
 
 .cell.error {
@@ -284,7 +408,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: var(--font-ui);
     font-size: clamp(6px, 0.9vw, 10px);
     color: var(--accent-yellow);
     font-weight: 700;
@@ -314,7 +438,7 @@ body {
 }
 
 .sidebar-section h3 {
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: var(--font-ui);
     font-size: 0.7rem;
     text-transform: uppercase;
     letter-spacing: 0.15em;
@@ -335,7 +459,7 @@ body {
 }
 
 .timer-display {
-    font-family: 'Space Mono', monospace;
+    font-family: var(--font-mono);
     font-weight: 700;
     font-size: 1.4rem;
     font-variant-numeric: tabular-nums;
@@ -344,7 +468,7 @@ body {
 }
 
 .message {
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: var(--font-ui);
     font-weight: 700;
     color: var(--accent-green);
     font-size: 1.1rem;
@@ -352,15 +476,32 @@ body {
 }
 
 .mistakes-display {
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: var(--font-ui);
     font-weight: 600;
     color: var(--accent-red);
     font-size: 0.9rem;
 }
 
+.timer-controls {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+}
+
+.timer-btn {
+    background: none;
+    border: 1px solid var(--border-primary);
+    color: var(--text-primary);
+    padding: 4px 12px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    border-radius: 0;
+    font-family: var(--font-ui);
+}
+
 /* --- Botões --- */
 .full-width {
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: var(--font-ui);
     width: 100%;
     padding: 12px;
     border: 1px solid var(--border-primary);
@@ -423,7 +564,7 @@ button.active-mode:hover {
 
 /* --- Dropdown --- */
 select {
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: var(--font-ui);
     width: 100%;
     padding: 12px;
     border: 1px solid var(--border-primary);
@@ -454,7 +595,7 @@ select:focus {
 select option {
     background-color: var(--bg-surface);
     color: var(--text-primary);
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: var(--font-ui);
 }
 
 /* --- Numpad --- */
@@ -474,7 +615,7 @@ select option {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: var(--font-ui);
 }
 
 .num-btn:hover {
@@ -482,14 +623,14 @@ select option {
 }
 
 .num-btn .char {
-    font-family: 'Instrument Serif', serif;
+    font-family: var(--font-numbers);
     font-size: 1.1rem;
     font-weight: 600;
     color: var(--text-primary);
 }
 
 .num-btn .count {
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: var(--font-ui);
     font-size: 0.65rem;
     color: var(--text-secondary);
     font-weight: 400;
@@ -524,7 +665,7 @@ select option {
 
 /* --- Instruções --- */
 .instructions {
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: var(--font-ui);
     font-size: 0.8rem;
     color: var(--text-secondary);
     font-weight: 400;
@@ -566,7 +707,7 @@ select option {
 }
 
 .modal-content h2 {
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: var(--font-ui);
     font-size: 0.85rem;
     text-transform: uppercase;
     letter-spacing: 0.1em;
@@ -576,7 +717,7 @@ select option {
 }
 
 .modal-content p {
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: var(--font-ui);
     font-size: 0.85rem;
     margin-bottom: 25px;
     color: var(--text-secondary);
@@ -596,7 +737,7 @@ select option {
 }
 
 .modal-buttons button {
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: var(--font-ui);
     flex: 1;
     padding: 12px;
     border: 1px solid var(--border-primary);
@@ -650,8 +791,8 @@ select option {
         display: none;
     }
     .sudoku-grid {
-        width: min(calc(100vh - 20px), calc(100vw - 360px));
-        height: min(calc(100vh - 20px), calc(100vw - 360px));
+        width: min(calc(100vh - 10px), calc(100vw - 360px));
+        height: min(calc(100vh - 10px), calc(100vw - 360px));
     }
 }
 

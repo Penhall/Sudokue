@@ -8,6 +8,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/effects.css">
 </head>
@@ -43,11 +45,21 @@
                     <option value="hard">Difícil</option>
                     <option value="expert">Expert</option>
                 </select>
+                <select id="theme" onchange="onThemeChange()">
+                    <option value="obsidian">Obsidian</option>
+                    <option value="papel">Papel</option>
+                    <option value="matrix">Matrix</option>
+                    <option value="ambar">Âmbar</option>
+                </select>
                 <button class="primary full-width" onclick="newGame()">Novo Jogo</button>
             </div>
 
             <div class="sidebar-section status-box">
                 <div class="timer-display" id="timer-display">00:00</div>
+                <div class="timer-controls">
+                    <button id="pause-btn" onclick="togglePause()" class="timer-btn">⏸</button>
+                    <button id="restart-btn" onclick="restartTimer()" class="timer-btn">↺</button>
+                </div>
                 <div class="message" id="message"></div>
                 <div class="mistakes-display" id="mistakes-display">Erros: 0 / 5</div>
             </div>

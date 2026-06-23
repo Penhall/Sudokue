@@ -17,6 +17,7 @@ let hintsLeft = 3;
 
 let timerInterval = null;
 let secondsElapsed = 0;
+let isPaused = false;
 let startedAt = null;
 let currentDifficulty = 'medium';
 
@@ -63,6 +64,7 @@ function newGame() {
       mistakes = 0;
       selectedCell = null;
       isPencilMode = false;
+      isPaused = false;
       secondsElapsed = 0;
       startedAt = new Date().toISOString();
 
@@ -70,6 +72,8 @@ function newGame() {
       document.getElementById('gameOverModal').classList.remove('show');
       document.getElementById('pencil-btn').textContent = 'Rascunho: OFF';
       document.getElementById('pencil-btn').classList.remove('active-mode');
+      const pauseBtnNew = document.getElementById('pause-btn');
+      if (pauseBtnNew) pauseBtnNew.textContent = '⏸';
 
       updateDifficultySettings();
       updateHintsUI();
@@ -109,6 +113,7 @@ function restartGame() {
   hintsLeft = 3;
   selectedCell = null;
   isPencilMode = false;
+  isPaused = false;
   secondsElapsed = 0;
   startedAt = new Date().toISOString();
 
@@ -116,6 +121,8 @@ function restartGame() {
   document.getElementById('gameOverModal').classList.remove('show');
   document.getElementById('pencil-btn').textContent = 'Rascunho: OFF';
   document.getElementById('pencil-btn').classList.remove('active-mode');
+  const pauseBtn = document.getElementById('pause-btn');
+  if (pauseBtn) pauseBtn.textContent = '⏸';
 
   updateHintsUI();
   updateTimerDisplay();
@@ -142,6 +149,7 @@ function formatTime(totalSeconds) {
 
 function startTimer() {
   stopTimer();
+  if (isPaused) return;
   timerInterval = setInterval(() => {
     secondsElapsed++;
     updateTimerDisplay();
@@ -157,7 +165,34 @@ function stopTimer() {
 
 function updateTimerDisplay() {
   const el = document.getElementById('timer-display');
-  if (el) el.textContent = formatTime(secondsElapsed);
+  if (!el) return;
+  if (isPaused) {
+    el.textContent = '⏸ PAUSADO';
+  } else {
+    el.textContent = formatTime(secondsElapsed);
+  }
+}
+
+function togglePause() {
+  isPaused = !isPaused;
+  const pauseBtn = document.getElementById('pause-btn');
+  if (isPaused) {
+    stopTimer();
+    if (pauseBtn) pauseBtn.textContent = '▶';
+  } else {
+    startTimer();
+    if (pauseBtn) pauseBtn.textContent = '⏸';
+  }
+  updateTimerDisplay();
+}
+
+function restartTimer() {
+  secondsElapsed = 0;
+  isPaused = false;
+  const pauseBtn = document.getElementById('pause-btn');
+  if (pauseBtn) pauseBtn.textContent = '⏸';
+  updateTimerDisplay();
+  startTimer();
 }
 
 // ==========================================
@@ -253,6 +288,12 @@ function onDifficultyChange() {
   newGame();
 }
 
+function onThemeChange() {
+  const theme = document.getElementById('theme').value;
+  document.body.setAttribute('data-theme', theme);
+  localStorage.setItem('sudokue-theme', theme);
+}
+
 function renderGrid() {
   const gridEl = document.getElementById('grid');
   gridEl.innerHTML = '';
@@ -276,9 +317,16 @@ function renderGrid() {
         if (r === selectedCell.r || c === selectedCell.c || sameBox) {
           cell.classList.add('highlight');
         }
+        if (r === selectedCell.r) {
+          cell.classList.add('row-highlight');
+        }
+        if (c === selectedCell.c) {
+          cell.classList.add('col-highlight');
+        }
         const selectedVal = board[selectedCell.r][selectedCell.c];
         if (selectedVal !== 0 && board[r][c] === selectedVal) {
           cell.classList.add('same-number');
+          cell.classList.add('value-highlight');
         }
       }
 
@@ -330,6 +378,7 @@ function removePencilMarkFromRelated(row, col, number) {
 
 function handleInput(val) {
   if (!selectedCell) return;
+  if (isPaused) return;
   const {r, c} = selectedCell;
   if (fixed[r][c]) return;
 
@@ -516,6 +565,7 @@ function initNumpad() {
 
 document.addEventListener('keydown', (e) => {
   if (!selectedCell) return;
+  if (isPaused) return;
 
   const key = e.key;
 
@@ -576,6 +626,7 @@ function loadGameState(state) {
 
   selectedCell = null;
   isPencilMode = false;
+  isPaused = false;
 
   // Update UI
   document.getElementById('difficulty').value = currentDifficulty;
@@ -583,6 +634,8 @@ function loadGameState(state) {
   document.getElementById('gameOverModal').classList.remove('show');
   document.getElementById('pencil-btn').textContent = 'Rascunho: OFF';
   document.getElementById('pencil-btn').classList.remove('active-mode');
+  const pauseBtnLoad = document.getElementById('pause-btn');
+  if (pauseBtnLoad) pauseBtnLoad.textContent = '⏸';
 
   updateHintsUI();
   updateTimerDisplay();
@@ -654,6 +707,15 @@ if (window.electronAPI) {
 
 function init() {
   console.log('Sudokue: Inicializando...');
+
+  // Load saved theme
+  const savedTheme = localStorage.getItem('sudokue-theme');
+  if (savedTheme) {
+    document.body.setAttribute('data-theme', savedTheme);
+    const themeSelect = document.getElementById('theme');
+    if (themeSelect) themeSelect.value = savedTheme;
+  }
+
   initNumpad();
 
   // Check for saved game first
