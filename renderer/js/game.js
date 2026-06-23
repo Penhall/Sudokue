@@ -762,6 +762,14 @@ if (window.electronAPI) {
 function init() {
   console.log('Sudokue: Inicializando...');
 
+  // Auto-detect Tauri and set Sci-Fi theme
+  if (window.__TAURI__) {
+    document.title = 'Sudokue // Tauri';
+    document.body.setAttribute('data-theme', 'scifi');
+    document.getElementById('theme').value = 'scifi';
+    localStorage.setItem('sudokue-theme', 'scifi');
+  }
+
   // Load saved theme
   const savedTheme = localStorage.getItem('sudokue-theme');
   if (savedTheme) {

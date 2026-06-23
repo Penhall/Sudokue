@@ -25,6 +25,9 @@
     --font-ui: 'Space Grotesk', sans-serif;
     --font-numbers: 'Instrument Serif', serif;
     --font-mono: 'Space Mono', monospace;
+    --text-glow: none;
+    --scanline-opacity: 0;
+    --border-glow: none;
 }
 
 /* ============================================
@@ -54,6 +57,9 @@ body[data-theme="papel"] {
     --font-ui: 'Work Sans', sans-serif;
     --font-numbers: 'Crimson Text', serif;
     --font-mono: 'Space Mono', monospace;
+    --text-glow: none;
+    --scanline-opacity: 0;
+    --border-glow: none;
 }
 
 /* ============================================
@@ -83,6 +89,9 @@ body[data-theme="matrix"] {
     --font-ui: 'Courier New', 'Consolas', monospace;
     --font-numbers: 'Courier New', 'Consolas', monospace;
     --font-mono: 'Courier New', 'Consolas', monospace;
+    --text-glow: none;
+    --scanline-opacity: 0;
+    --border-glow: none;
 }
 
 /* ============================================
@@ -112,6 +121,86 @@ body[data-theme="ambar"] {
     --font-ui: 'IBM Plex Sans', sans-serif;
     --font-numbers: 'IBM Plex Serif', serif;
     --font-mono: 'IBM Plex Mono', monospace;
+    --text-glow: none;
+    --scanline-opacity: 0;
+    --border-glow: none;
+}
+
+/* ============================================
+   THEME: Sci-Fi (Cyber — neon + terminal)
+   ============================================ */
+body[data-theme="scifi"] {
+    --bg-primary: #0a0e14;
+    --bg-surface: #0d1117;
+    --bg-cell: #0d1117;
+    --bg-cell-fixed: #0a0e14;
+    --bg-cell-selected: #00ffff;
+    --bg-cell-highlight: #111d2b;
+    --bg-cell-same-number: #15202b;
+    --bg-cell-row-highlight: #111d2b;
+    --bg-cell-col-highlight: #111d2b;
+    --bg-cell-value-highlight: #0a2a3a;
+    --bg-cell-error: #330011;
+    --border-primary: #1a3a5c;
+    --border-thick: #00ffff;
+    --border-section: #0d2040;
+    --text-primary: #b3e5ff;
+    --text-secondary: #4a7a9a;
+    --text-inverse: #0a0e14;
+    --accent-green: #00ffcc;
+    --accent-yellow: #ffcc00;
+    --accent-red: #ff3366;
+    --text-glow: 0 0 8px rgba(0, 255, 255, 0.4);
+    --scanline-opacity: 0.03;
+    --border-glow: 0 0 4px rgba(0, 255, 255, 0.3);
+    --font-ui: 'Orbitron', sans-serif;
+    --font-numbers: 'Share Tech Mono', monospace;
+    --font-mono: 'Share Tech Mono', monospace;
+}
+
+/* Sci-fi scanline overlay */
+body[data-theme="scifi"]::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9998;
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 255, 255, var(--scanline-opacity)) 2px,
+        rgba(0, 255, 255, var(--scanline-opacity)) 4px
+    );
+}
+
+/* Sci-fi text glow on grid values */
+body[data-theme="scifi"] .cell {
+    text-shadow: var(--text-glow);
+}
+
+/* Sci-fi glowing borders on selected cell */
+body[data-theme="scifi"] .cell.selected {
+    box-shadow: 0 0 0 2px #00ffff, var(--border-glow) !important;
+}
+
+/* Sci-fi grid border glow */
+body[data-theme="scifi"] .sudoku-grid {
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
+}
+
+/* Sci-fi button hover glow */
+body[data-theme="scifi"] button:hover {
+    box-shadow: var(--border-glow);
+}
+
+/* Sci-fi modal glow */
+body[data-theme="scifi"] .modal-content {
+    box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);
+    border: 1px solid #00ffff;
 }
 
 /* Matrix text-shadow glow */
